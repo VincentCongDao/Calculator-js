@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+      <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Unit Converter</title>
+            <link rel="stylesheet" href="../index.css" />
+      </head>
+
+      <body>
+            <div class="nav-content">
+                  <h2 class="nav-logo">
+                        See Calculator
+                  </h2>
+                  <nav class="nav-container">
+                        <ul class="nav-list">
+                              <li><a href="/">Home</a></li>
+                              <li><a href="/page/calculator.html">Calculator</a></li>
+                              <li><a href="/page/unit.html">Unit Calculator</a></li>
+                              <li><a href="/page/tips.html">Tips Calculator</a></li>
+                              <li><a href="/page/calculator.html">BMI Converter</a></li>
+                        </ul>
+                  </nav>
+            </div>
+            <div class="body-content">
+                  <div class="title">
+                        <h1>Unit Converter</h1>
+                  </div>
+                  <div class="container">
+                        <div class="unit-wrapper">
+                              <div class="unit-container">
+                                    <div class="left-container">
+                                          <input id="uInput-1" class="uInput" type="number" placeholder="Enter Value" />
+                                          <select id="fromUnit" class="uSelect">
+                                                <option>Kilometer</option>
+                                                <option>Meter</option>
+                                                <option>Centimeter</option>
+                                                <option>Millimeter</option>
+                                                <option>Mircometer</option>
+                                                <option>Nanometer</option>
+                                                <option>Mile</option>
+                                                <option>Yard</option>
+                                                <option>Foot</option>
+                                                <option>Inch</option>
+                                                <option>Nautical mile</option>
+                                          </select>
+                                    </div>
+                                    <div class="right-container">
+                                          <input id="uInput-2" class="uInput" type="text" readonly
+                                                placeholder="Convertered Value" />
+                                          <select id="toUnit" class="uSelect">
+                                                <option>Kilometer</option>
+                                                <option>Meter</option>
+                                                <option>Centimeter</option>
+                                                <option>Millimeter</option>
+                                                <option>Mircometer</option>
+                                                <option>Nanometer</option>
+                                                <option>Mile</option>
+                                                <option>Yard</option>
+                                                <option>Foot</option>
+                                                <option>Inch</option>
+                                                <option>Nautical mile</option>
+                                          </select>
+                                    </div>
+                              </div>
+                              <div class="unit-button">
+                                    <button class="submit-converter">Convert</button>
+                              </div>
+
+                        </div>
+                  </div>
+            </div>
+            <script>
+                  // Define conversion rates
+                  const conversionRates = {
+                        'Kilometer': 1,
+                        'Meter': 0.001,
+                        'Centimeter': 0.00001,
+                        'Millimeter': 0.000001,
+                        'Micrometer': 0.000000001,
+                        'Nanometer': 0.000000000001,
+                        'Mile': 0.000621371,
+                        'Yard': 0.0009144,
+                        'Foot': 0.00328084,
+                        'Inch': 0.000127,
+                        'Nautical mile': 0.000539957
+                  };
+
+                  // Function to convert units
+                  function convertUnits() {
+                        var fromUnit = document.getElementById('fromUnit').value;
+                        var toUnit = document.getElementById('toUnit').value;
+                        var inputValue = parseFloat(document.getElementById('uInput-1').value);
+                        var outputElement = document.getElementById('uInput-2');
+
+                        if (!isNaN(inputValue)) {
+                              var convertedValue = inputValue * conversionRates[fromUnit] / conversionRates[
+                                    toUnit];
+                              outputElement.value = convertedValue.toFixed(4); // Adjust decimal places as needed
+                        } else {
+                              outputElement.value = 'Invalid input';
+                        }
+                  }
+
+                  document.querySelector(".submit-converter").addEventListener("click", convertUnits)
+
+            </script>
+      </body>
+
+</html>

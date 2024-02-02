@@ -4,133 +4,70 @@
       <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Calculator</title>
+            <title>See Calculator</title>
             <link rel="stylesheet" href="index.css">
       </head>
 
       <body>
-            <section class="body-content">
-                  <div class="calculator-container" id="calculator-container">
+            <div class="nav-content">
+                  <h2 class="nav-logo">
+                        See Calculator
+                  </h2>
+                  <nav class="nav-container">
+                        <ul class="nav-list">
+                              <li><a href="/">Home</a></li>
+                              <li><a href="/page/calculator.html">Calculator</a></li>
+                              <li><a href="/page/unit.html">Unit Calculator</a></li>
+                              <li><a href="/page/tips.html">Tips Calculator</a></li>
+                              <li><a href="/page/calculator.html">BMI Converter</a></li>
+                        </ul>
+                  </nav>
+            </div>
+            <div class="body-content">
+                  <div class="">
                         <div class="title">
-                              <h1>Calculator</h1>
-                        </div>
-                        <div class="total-calculation">
-                              <input type="text" id="previous-calculation" disabled />
-                              <input type="text" id="calculation" placeholder="0" title="Please enter a valid number"
-                                    required pattern="\d+(\.\d+)" />
-                        </div>
-                        <div class="key-container">
-                              <div class="key-layout key-layout-1">
-                                    <button onclick="appendToCalculation('1')">1</button>
-                                    <button onclick="appendToCalculation('2')">2</button>
-                                    <button onclick="appendToCalculation('3')">3</button>
-                              </div>
-                              <div class="key-layout key-layout-2">
-                                    <button onclick="appendToCalculation('/')">/</button>
-                                    <button onclick="appendToCalculation('*')">*</button>
-                                    <button onclick="appendToCalculation('+')">+</button>
-                                    <button onclick="appendToCalculation('-')">-</button>
-                              </div>
-                              <div class="key-layout key-layout-3">
-                                    <button onclick="appendToCalculation('7')">7</button>
-                                    <button onclick="appendToCalculation('8')">8</button>
-                                    <button onclick="appendToCalculation('9')">9</button>
-                              </div>
-                              <div class="key-layout key-layout-4">
-                                    <button onclick="appendToCalculation('4')">4</button>
-                                    <button onclick="appendToCalculation('5')">5</button>
-                                    <button onclick="appendToCalculation('6')">6</button>
-                              </div>
-                              <div class="key-layout key-layout-5">
-                                    <button onclick="totalCalculation()">Total</button>
-                                    <button onclick="clearCalculation()">AC</button>
-                                    <button onclick="appendToCalculation('+')">.</button>
-                              </div>
-
+                              <h1>Tips Calculator</h1>
                         </div>
                   </div>
-            </section>
+                  <div class="container">
+                        <div class="tips-calculator">
+                              <div class="tips-flex">
+                                    <h4>Bill</h4>
+                                    <input class="tips-bill">
+                              </div>
+                              <div class="">
+                                    <h4>Select Tips %</h4>
+                                    <button class="tips-button">5%</button>
+                                    <button class="tips-button">10%</button>
+                                    <button class="tips-button">15%</button>
+                                    <button class="tips-button">20%</button>
+                                    <button class="tips-button">25%</button>
+                                    <input class="tips-input" placeholder="Custom Tips" />
+                              </div>
+                              <div class="tips-flex">
+                                    <h4>Numbers of People</h4>
+                                    <input class="tips-total-pp">
+                              </div>
+                        </div>
+                        <div class="">
+                              <!-- Tip Amount -->
+                              <h6>Tip Amount
+                                    <br />
+                                    <span>/ person</span>
+                              </h6>
+                              <h2 class="tip-total"></h2>
+                              <!-- Total -->
 
-            <script>
-                  var getCalculation = document.getElementById("calculation");
-                  var getPreviousCalc = document.getElementById("previous-calculation");
-                  var currentOperator = '';
-                  var isFirstInput = true;
-                  const appendToCalculation = (value) => {
-                        if (isFirstInput && !isValidNumber(value)) {
-                              getCalculation.value = value;
-                              // If it's the first input and not a valid number, do nothing
-                              return;
-                        }
-                        if (isOperation(value)) {
-                              // Check if there's a previous calculation to append the operator
-                              if (getPreviousCalc.value !== '') {
-                                    // Append the first input with the operator to the previous calculation
-                                    getPreviousCalc.value += getCalculation.value + " " + value;
-                                    getCalculation.value = ''; // Clear the calculation for the new input
-                              } else if (getCalculation.value !== '') {
-                                    // If there's no previous calculation, append the current calculation with the operator
-                                    getPreviousCalc.value = getCalculation.value + " " + value;
-                                    getCalculation.value = ''; // Clear the calculation for the new input
-                              }
-                        } else {
-                              // If it's not an operation, append the value to the calculation
-                              if (getCalculation.value.startsWith('Error')) {
-                                    // If the current value is an error, clear it before appending the new value
-                                    getCalculation.value = value;
-                              } else {
-                                    getCalculation.value += value;
-                              }
-                        }
+                              <h6>Total
+                                    <br />
+                                    <span>/ person</span>
+                              </h6>
+                              <h2 class="total-total"></h2>
 
-                        isFirstInput = false;
-                  }
-                  const isOperation = (value) => {
-                        return ["/", "*", "+", "-"].includes(value);
-                  }
-
-                  const clearCalculation = () => {
-                        // Clear both the calculation and the previous calculation
-                        getCalculation.value = '';
-                        getPreviousCalc.value = '';
-                  }
-                  const totalCalculation = () => {
-                        try {
-                              if (!isValidNumber(getCalculation.value)) {
-                                    throw new Error('Invalid calculation');
-                              }
-                              let previousValue = parseFloat(getPreviousCalc.value);
-                              let currentValue = parseFloat(getCalculation.value);
-                              if (isNaN(previousValue) || isNaN(currentValue)) {
-                                    throw new Error('Invalid calculation');
-                              }
-                              let result = 0;
-                              let expression = getPreviousCalc.value + getCalculation.value;
-                              result = eval(expression);
-
-                              // Update the calculation with the result and clear the previous calculation
-                              getCalculation.value = result;
-                              getPreviousCalc.value = '';
-                              currentOperator = '';
-                              isFirstInput = true;
-
-                        } catch (error) {
-                              getCalculation.value = `Error: ${error.message}`;
-
-                        } finally {
-                              // Reset the calculator after displaying the result
-                              setTimeout(() => {
-                                    getCalculation.value = '';
-                                    getPreviousCalc.value = '';
-                              }, 1000); // Adjust the timeout as needed
-                        }
-                  }
-                  const isValidNumber = (value) => {
-                        // Use regex to check if the value is a valid number
-                        return /^\d+(\.\d+)?$/.test(value);
-                  }
-
-            </script>
+                              <button>Reset</button>
+                        </div>
+                  </div>
+            </div>
       </body>
 
 </html>
